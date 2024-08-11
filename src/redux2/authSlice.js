@@ -4,20 +4,48 @@ import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 
 // Thay đổi URL và cấu hình phù hợp với API của bạn
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080/api';
 
 export const login = createAsyncThunk('auth/login', async ({ username, password }, thunkAPI) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, { username, password });
+    const response = await axios.post(`${API_URL}/users/login`, { username, password });
+    console.log(response.data)
     return response.data; // Trả về dữ liệu từ phản hồi
   } catch (error) {
+    console.log(error.response.data)
     return thunkAPI.rejectWithValue(error.response.data); // Trả về lỗi nếu có
   }
 });
 export const both = createAsyncThunk('auth/both', async (thunkAPI) => {
-  const url="test4/both";
+  const url= 'http://localhost:8080/api/users/login1';
+
+    await axios.post('http://localhost:8080/api/users/login1', {
+      username: '12345',
+      password: '12345'
+  }, {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      }
+  })
+  .then(response => {
+    console.log('Response:', response.data);
+    return response.data; // Trả về dữ liệu từ phản hồi
+})
+.catch(error =>{
+  console.log(error);
+})
+   
+   
+  // } catch (error) {
+  //   return thunkAPI.rejectWithValue(error.response.data); // Trả về lỗi nếu có
+  // }
+});
+export const cate = createAsyncThunk('auth/cate', async (thunkAPI) => {
+  const url= 'http://localhost:8080/api/categories?page=0&size=6';
   try {
-    const response = await axiosInstance.get(url);
+    console.log("da vao")
+    const response = await axios.get(url);
     return response.data; // Trả về dữ liệu từ phản hồi
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data); // Trả về lỗi nếu có
@@ -48,7 +76,8 @@ const authSlice = createSlice({
     refreshToken: null,
     status: 'idle',
     error: null,
-    b:null
+    b:null,
+    arr:null
   },
   reducers: {
     setUser(state, action) {
@@ -62,12 +91,13 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.token = action.payload.accessToken;
-        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.refreshToken=action.payload.refresh_token
+        state.user = action.payload.username;
         // Lưu token vào localStorage
-        localStorage.setItem('accessToken', action.payload.accessToken);
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('accessToken', action.payload.token);
+        localStorage.setItem('refreshToken', action.payload.refresh_token);
+        localStorage.setItem('user', JSON.stringify(action.payload.username));
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
@@ -87,6 +117,10 @@ const authSlice = createSlice({
       })
       .addCase(both.fulfilled, (state, action) => {
         state.b = action.payload
+        
+      })
+      .addCase(cate.fulfilled, (state, action) => {
+        state.arr = action.payload
         
       });
   },

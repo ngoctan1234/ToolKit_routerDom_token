@@ -14,11 +14,12 @@ import "./style.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactPaginate from 'react-paginate';
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route ,Link} from "react-router-dom";
 
 import Home from './components2/Home';
 import LoginForm from './components2/LoginForm';
 import Both from './components2/Both';
+import Categories from './components2/Categories';
 
 function App() {
   const currentItems = 1;
@@ -33,11 +34,15 @@ function App() {
     <div className="App">
 
           <Router>
-                
+                <Link to="/cate">  Cate</Link><br/>
+                <Link to="/login1">  Test login1</Link><br/>
+                <Link to="/login">  Login</Link><br/>
+
                 <Routes>
                     <Route path="/login" element={<LoginForm />}></Route>
                     <Route index element={<Home />}></Route>
-                    <Route path="/both" element={<Both />}></Route>
+                    <Route path="/login1" element={<Both />}></Route>
+                    <Route path="/cate" element={<Categories />}></Route>
                 </Routes>
             </Router>
            

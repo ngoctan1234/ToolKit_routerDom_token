@@ -17,8 +17,7 @@ const Home = () => {
   return (
     <div>
       <h2>User Profile</h2>
-      <p><strong>Username:</strong> {user.username}</p>
-      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Username:</strong> {user}</p>
       <p><strong>Token:</strong> {token}</p>
       <button onClick={handleLogout}>Logout</button>
       <Link to="/both"> Both</Link>

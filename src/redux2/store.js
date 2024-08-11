@@ -12,14 +12,14 @@ import authSlice from './authSlice';
 
 const store=configureStore({
     reducer:{
-        count:countReducer,
-        user:userReducer,
-        student:studentSlice,
-        students:listSlice,
-        products:productSlice,
-        cart:cartSlice,
-        todos:todolistSlice,
-        cats:catsSlice,
+        // count:countReducer,
+        // user:userReducer,
+        // student:studentSlice,
+        // students:listSlice,
+        // products:productSlice,
+        // cart:cartSlice,
+        // todos:todolistSlice,
+        // cats:catsSlice,
         auth:authSlice
     }
 })

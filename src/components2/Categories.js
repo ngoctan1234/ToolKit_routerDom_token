@@ -1,24 +1,29 @@
 // src/components/LoginForm.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { both } from '../redux2/authSlice';
+import { cate } from '../redux2/authSlice';
 import { useNavigate } from "react-router-dom";
-const Both = () => {
+const Categories = () => {
   const dispatch = useDispatch();
-  const {b } = useSelector((state) => state.auth);
+  const {arr} = useSelector((state) => state.auth);
   const navigate=useNavigate()
   useEffect(()=>{
-    dispatch(both())
+    dispatch(cate())
   },[])
 
 
 
   return (
    <div>
-    <h1>Both: {b}</h1>
-
+    <h1>List </h1>
+    {
+        arr&&arr.map((item,index)=>(
+            <p key={index}>{item.name}</p>
+        ))
+    }
+    
    </div>
   );
 };
 
-export default Both;
+export default Categories;

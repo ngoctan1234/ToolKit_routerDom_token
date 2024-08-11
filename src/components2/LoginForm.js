@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux2/authSlice';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('12345');
+  const [password, setPassword] = useState('12345');
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.auth);
   const navigate=useNavigate()
@@ -21,7 +21,9 @@ const LoginForm = () => {
   if (status === 'failed') return <p>Error: {error}</p>;
 
   return (
-    <form onSubmit={handleLogin}>
+    <>
+     <Link to="/both"> Both</Link>
+     <form onSubmit={handleLogin}>
       <div>
         <label htmlFor="username">Username:</label>
         <input
@@ -42,6 +44,8 @@ const LoginForm = () => {
       </div>
       <button type="submit">Login</button>
     </form>
+    </>
+    
   );
 };
 
